@@ -1,0 +1,126 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"  ng-app="webApp"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <base href="/">
+    <title ng-cloak bi-title>Parlio</title>
+    <meta name="description" content="">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <script src="//use.typekit.net/saa1jio.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
+    <script>
+      // Include the UserVoice JavaScript SDK (only needed once on a page)
+      UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='https://widget.uservoice.com/A89clHwiyIYvKGm6cATYA.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+      //
+      // UserVoice Javascript SDK developer documentation:
+      // https://www.uservoice.com/o/javascript-sdk
+      //
+
+      // Set colors
+      UserVoice.push(['set', {
+        accent_color: '#448dd6',
+        trigger_color: 'white',
+        trigger_background_color: 'rgba(46, 49, 51, 0.6)'
+      }]);
+
+    </script>
+
+
+    <link rel="shortcut icon"  type="image/png" href="assets/images/9e3bae74.apple-touch-icon-76x76.png"/>
+    <link rel="shortcut icon" type="image/png" href="assets/images/a736a42b.parlio-favicon-16.png"/>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="stylesheet" href="app/6acf8882.vendor.css"/>
+    <link rel="stylesheet" href="app/a1c1a7a0.app.css"/>
+
+  </head>
+
+  <body ng-controller='ApplicationCtrl'>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ng-if='auth.showApp()'>
+
+      <div class='left-nav' ng-controller='LeftnavCtrl' ng-include="'app/leftnav/leftnav.html'"></div>
+
+      <div class='container-body'>
+        <div ng-controller='TopnavCtrl' class='top-nav' ng-include="'app/topnav/topnav.html'"></div>
+
+
+        
+        <div class='scrollable' bi-scroll-refresh >
+          <div class='wrap'>
+
+            <div ng-show='data.errors' ng-repeat='error in data.errors'>
+                <bi-error-communication error='error'>
+            </div>
+
+            <div id='parlio-main-loader' class='pull-reload'><bi-loader></bi-loader></div>
+            <div id='ui-view' ui-view></div>
+          </div>
+        </div>
+      </div>
+
+      <div class='col-sm-2 right-nav'  ng-controller='RightnavCtrl' ng-include="'app/rightnav/rightnav.html'"></div>
+    </div>
+
+
+    <div ng-if='!auth.showApp()' ui-view>
+
+    </div>
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <script src="app/028cf7dc.vendor.js"></script>
+
+        <script src="app/ffcd66b6.app.js"></script>
+
+
+    <!-- Async Social SDKs -->
+    <div id="fb-root"></div>
+
+    <script type="text/javascript">
+      (function(doc, script) {
+        var js,
+            fjs = doc.getElementsByTagName(script)[0],
+            add = function(url, id) {
+                if (doc.getElementById(id)) {return;}
+                js = doc.createElement(script);
+                js.src = url;
+                id && (js.id = id);
+                fjs.parentNode.insertBefore(js, fjs);
+            };
+        // Facebook SDK
+        add('https://connect.facebook.net/en_US/all.js', 'facebook-jssdk');
+        // Twitter SDK
+        //add('https://platform.twitter.com/widgets.js', 'twitter-wjs');
+      }(document, 'script'));
+    </script>
+
+
+    <!-- Async resolve promise when FB SDK is loaded, this triggers Parse.FacebookUtils.init() -->
+    <script>
+      var fbDeferred = $.Deferred();
+      window.fbPromise = fbDeferred.promise();
+      window.fbAsyncInit = function() {
+        fbDeferred.resolve();
+      };
+    </script>
+
+    <!-- Asyc Segment.io init -->
+    <div bi-segmentio></div>
+
+    <div ng-controller="UservoiceCtrl">
+      <div bi-user-voice mode="contact" position="bottom-right" identify="identify"></div>
+    </div>
+</body>
+</html>
